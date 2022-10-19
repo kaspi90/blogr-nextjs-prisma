@@ -1,9 +1,8 @@
 import React from "react";
 import { GetStaticProps } from "next";
-import Layout from "../components/Layout";
 import Post, { PostProps } from "../components/Post";
 import prisma from "../lib/prisma";
-import ButtonAppBar from "../components/ButtonAppBar";
+import ResponsiveAppBar from "../components/ResponsiveAppBar";
 
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
@@ -27,8 +26,8 @@ type Props = {
 
 const Blog: React.FC<Props> = (props) => {
   return (
-    <Layout>
-      <ButtonAppBar></ButtonAppBar>
+    <div>
+      <ResponsiveAppBar></ResponsiveAppBar>
       <div className="page">
         <h1>Public Feed</h1>
         <main>
@@ -53,7 +52,7 @@ const Blog: React.FC<Props> = (props) => {
           margin-top: 2rem;
         }
       `}</style>
-    </Layout>
+    </div>
   );
 };
 

@@ -3,6 +3,7 @@ import { GetStaticProps } from "next";
 import Post, { PostProps } from "../components/Post";
 import prisma from "../lib/prisma";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
+import Login from "../components/Login";
 
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
@@ -28,6 +29,7 @@ const Blog: React.FC<Props> = (props) => {
   return (
     <div>
       <ResponsiveAppBar></ResponsiveAppBar>
+      <Login />
       <div className="page">
         <h1>Public Feed</h1>
         <main>

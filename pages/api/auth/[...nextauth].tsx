@@ -9,7 +9,6 @@ export const authOptions = {
       clientId: process.env.STRAVA_CLIENT_ID,
       clientSecret: process.env.STRAVA_CLIENT_SECRET,
     }),
-    // ...add more providers here
   ],
   callbacks: {
     async jwt({ token, account }) {

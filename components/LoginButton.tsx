@@ -27,10 +27,18 @@ export default function LoginButton() {
               display: "flex",
 
               justifyContent: "center",
+              flexWrap: "wrap",
             }}
           >
             <Box>
-              Signed in as {session.user.email} <br />
+              Signed in as {session.user.name} <br />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <a onClick={() => signOut()}>
                 <Box
                   sx={{ cursor: "pointer", border: 1, borderRadius: 1 }}
@@ -71,8 +79,17 @@ export default function LoginButton() {
             justifyContent: "center",
           }}
         >
-          <Box>
-            Not signed in <br />
+          <Box
+            sx={{
+              display: "flex",
+
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box>
+              Not signed in <br />
+            </Box>
             <a onClick={() => signIn()}>
               <Box
                 sx={{ cursor: "pointer", border: 1, borderRadius: 1 }}

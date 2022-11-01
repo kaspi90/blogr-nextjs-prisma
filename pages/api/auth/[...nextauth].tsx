@@ -18,10 +18,23 @@ export const authOptions = {
       }
       return token;
     },
+
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       session.accessToken = token.accessToken;
       return session;
+    },
+
+    async signIn({ user, account, profile, email, credentials }) {
+      const isAllowedToSignIn = true;
+      if (isAllowedToSignIn) {
+        return "/yes";
+      } else {
+        // Return false to display a default error message
+        return "/unauthorized";
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
     },
   },
 };

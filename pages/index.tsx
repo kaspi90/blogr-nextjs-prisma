@@ -30,7 +30,7 @@ const Blog: React.FC<Props> = (props) => {
     <div>
       <ResponsiveAppBar></ResponsiveAppBar>
       <LoginButton></LoginButton>
-      <div className="page">
+      {/*  <div className="page">
         <h1>Public Feed</h1>
         <main>
           {props.feed.map((post) => (
@@ -53,7 +53,7 @@ const Blog: React.FC<Props> = (props) => {
         .post + .post {
           margin-top: 2rem;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 };

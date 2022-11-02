@@ -45,14 +45,10 @@ function ResponsiveAppBar() {
   const UserIcon = () => {
     if (session) {
       return (
-        <Tooltip title="Open settings">
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar
-              alt={session ? session.user.name : "no user name"}
-              src={session ? session.user.image : null}
-            />
-          </IconButton>
-        </Tooltip>
+        <Avatar
+          alt={session ? session.user.name : "no user name"}
+          src={session ? session.user.image : null}
+        />
       );
     }
 
@@ -119,7 +115,11 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <UserIcon></UserIcon>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <UserIcon></UserIcon>
+              </IconButton>
+            </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

@@ -1,5 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Box } from "@mui/system";
+import Achievement from "./Achievement";
 
 export default function LoginButton() {
   const { data: session } = useSession();
@@ -7,6 +8,7 @@ export default function LoginButton() {
     return (
       <Box>
         Signed in as {session.user.name} <br />
+        <Achievement></Achievement>
       </Box>
     );
   }

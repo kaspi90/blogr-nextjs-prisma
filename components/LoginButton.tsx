@@ -7,7 +7,6 @@ export default function LoginButton() {
   if (session) {
     return (
       <Box>
-        Signed in as {session.user.name} <br />
         <Achievement></Achievement>
       </Box>
     );

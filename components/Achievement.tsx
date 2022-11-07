@@ -1,18 +1,23 @@
 import { useSession } from "next-auth/react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
-import { DataThresholding } from "@mui/icons-material";
-import { flexbox } from "@mui/system";
 import { useState } from "react";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import NativePickers from "./NativePickers";
+import { Button } from "@material-ui/core";
 
-function Achievement() {
+function Achievement({ children }) {
   const { data } = useSession();
   const [responseSwim, setResponseSwim] = useState();
   const [responseRun, setResponseRun] = useState();
   const [responseRiding, setResponseRiding] = useState();
   const [athledeId, setAthleteId] = useState();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("1");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
   const accessTokenString = JSON.stringify(data).split('"');
@@ -97,13 +102,46 @@ function Achievement() {
       >
         Set your goals
       </Typography>
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="Swimming Goal" />
-        <Tab label="Riding Goal" />
-        <Tab label="Running Goal" />
-      </Tabs>
+
       <button onClick={callAthleteId}>Make API call</button>
       <button onClick={callAthleteStats}>Make API call 2</button>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <Box
+          sx={{
+            maxWidth: "800px",
+            typography: "body1",
+            margin: "auto",
+          }}
+        >
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab label="Swimming Goals" value="1" />
+                <Tab label="Riding Goals" value="2" />
+                <Tab label="Running Goals" value="3" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              <Typography>Set new Goal</Typography>
+              <br />
+              <NativePickers></NativePickers>
+            </TabPanel>
+            <TabPanel value="2">
+              <Typography>Set new Goal</Typography>
+              <br />
+              <NativePickers></NativePickers>
+            </TabPanel>
+            <TabPanel value="3">
+              <Typography>Set new Goal</Typography>
+              <br />
+              <NativePickers></NativePickers>
+            </TabPanel>
+          </TabContext>
+        </Box>
+      </LocalizationProvider>
     </Box>
   );
 }

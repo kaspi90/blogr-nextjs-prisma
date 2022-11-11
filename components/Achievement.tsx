@@ -7,9 +7,10 @@ import TabPanel from "@mui/lab/TabPanel";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import NativePickers from "./NativePickers";
-import { Button } from "@material-ui/core";
+import UserService from "../pages/api/UserService";
+import { callOurApi } from "../pages/api/UserService";
 
-function Achievement({ children }) {
+function Achievement() {
   const { data } = useSession();
   const [responseSwim, setResponseSwim] = useState();
   const [responseRun, setResponseRun] = useState();
@@ -59,6 +60,10 @@ function Achievement({ children }) {
   };
 
   callAthleteStats();
+
+  UserService({ name: "dedffefdede" });
+
+  callOurApi();
 
   return (
     <Box maxWidth={"1200px"} margin={"auto"} sx={{ display: "flex-col" }}>

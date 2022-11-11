@@ -6,7 +6,7 @@ import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import LoginButton from "../components/LoginButton";
 
 // index.tsx
-export const getStaticProps: GetStaticProps = async () => {
+/* export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.post.findMany({
     where: { published: true },
     include: {
@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 10,
   };
 };
-
+ */
 type Props = {
   feed: PostProps[];
 };

@@ -1,11 +1,12 @@
-async function UserService(data = {}) {
-  const response = await fetch(`http://localhost:7600/users`, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+import axios from "axios";
 
-  /*   const json = await response.json();
-  return json; */
+async function UserService(data = {}) {
+  try {
+    const response = await axios.post("http://localhost:7600/users", data);
+    return response.data;
+  } catch (error) {
+    console.log({ error: error.response });
+  }
 }
 
 /* async function getresponse(data) {

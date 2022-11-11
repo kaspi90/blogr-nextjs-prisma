@@ -11,7 +11,7 @@ import UserService from "../pages/api/UserService";
 import { callOurApi } from "../pages/api/UserService";
 
 function Achievement() {
-  const { data } = useSession();
+  const { data: session } = useSession();
   const [responseSwim, setResponseSwim] = useState();
   const [responseRun, setResponseRun] = useState();
   const [responseRiding, setResponseRiding] = useState();
@@ -21,7 +21,7 @@ function Achievement() {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-  const accessTokenString = JSON.stringify(data).split('"');
+  const accessTokenString = JSON.stringify(session).split('"');
   const accessToken = accessTokenString[17];
 
   const config = {
@@ -39,6 +39,10 @@ function Achievement() {
       console.log(err);
     }
   };
+
+  if (session) {
+    UserService({ name: session.user.name });
+  }
 
   const callAthleteStats = async () => {
     callAthleteId();
@@ -60,8 +64,6 @@ function Achievement() {
   };
 
   callAthleteStats();
-
-  UserService({ name: "dedffefdede" });
 
   callOurApi();
 

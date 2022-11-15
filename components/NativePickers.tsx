@@ -1,21 +1,21 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import { Box, Button } from "@material-ui/core";
-import { useState } from "react";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { Moment } from "moment";
+import { userGoal } from "../pages/api/UserService";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-export default function NativePickers() {
-  const [startDate, setStartDate] = React.useState<Moment | null>(null);
-  const [goalDate, setGoalDate] = React.useState<Moment | null>(null);
-
-  const [value, setValue] = useState("");
-
+export default function NativePickers({
+  startDate,
+  goalDate,
+  goal,
+  setGoal,
+  setStartDate,
+  setGoalDate,
+}) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setGoal(event.target.value);
   };
 
   return (
@@ -41,11 +41,10 @@ export default function NativePickers() {
           id="outlined-basic"
           label="Kilometers"
           variant="outlined"
-          value={value}
+          type="number"
+          value={goal}
           onChange={handleChange}
         />
-
-        <button>Speichern</button>
       </Stack>
     </LocalizationProvider>
   );

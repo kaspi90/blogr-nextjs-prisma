@@ -25,13 +25,14 @@ app.get('/users', async (req, res) => {
 
   app.post("/users", async (req, res) => {
     try {
-      const { name } = req.body
+      const { name, id } = req.body
   
       // games is an array of string | string[]
   
       const newUser = await prisma.user.create({
         data: {
-          name: name
+          name: name,
+          stravaId: id 
         },
       })
   
@@ -39,7 +40,45 @@ app.get('/users', async (req, res) => {
     } catch (error: any) {
       console.log(error.message)
       res.status(500).json({
-        message: "Internal Server Error",
+        message: "Internal Server Errork ",
+      })
+    }
+  })
+
+  app.get('/goals', async (req, res) => {
+    try {
+      const goals = await prisma.goal.findMany()
+  
+      res.json(goals)
+    } catch (error) {
+      res.status(500).json({
+        message: "Something went wrong",
+      })
+    }
+  })
+
+  app.post("/goals", async (req, res) => {
+    try {
+      const { sportType, kilometers, startDate, goalDate, id } = req.body
+  
+      // games is an array of string | string[]
+
+    const newGoal = await prisma.goal.create({
+     
+      data: {
+        sportType: sportType,
+        kilometers: kilometers, 
+        startDate: startDate,
+        goalDate: goalDate, 
+        userId: id 
+      },
+    })
+      
+      res.json(newGoal)
+    } catch (error: any) {
+      console.log(error.message)
+      res.status(500).json({
+        message: "Internal Server Errorbb ",
       })
     }
   })

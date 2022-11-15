@@ -1,28 +1,25 @@
-// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
-  id   String @id @default(uuid())
-  name String
-
-  goals Goal[]
+  id       String @id @default(uuid())
+  name     String
+  stravaId Int
+  goals    Goal[]
 }
 
 model Goal {
-  id           String   @id @default(uuid())
-  sportType    String
-  kilometers   Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  goalFinished DateTime
-
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  sportType  String
+  kilometers String
+  userId     String
+  goalDate   String
+  startDate  String
+  id         Int    @id @default(autoincrement())
+  User       User?  @relation(fields: [userId], references: [id])
 }

@@ -9,6 +9,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import NativePickers from "./NativePickers";
 import UserService from "../pages/api/UserService";
 import { callOurApi } from "../pages/api/UserService";
+import * as React from "react";
+import { Moment } from "moment";
+import { userGoal } from "../pages/api/UserService";
+import { stringify } from "querystring";
 
 function Achievement() {
   const { data: session } = useSession();
@@ -17,10 +21,15 @@ function Achievement() {
   const [responseRiding, setResponseRiding] = useState();
   const [athledeId, setAthleteId] = useState();
   const [value, setValue] = useState("1");
+  const [startDate, setStartDate] = React.useState<Moment | null>(null);
+  const [goalDate, setGoalDate] = React.useState<Moment | null>(null);
+
+  const [goal, setGoal] = useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
   const accessTokenString = JSON.stringify(session).split('"');
   const accessToken = accessTokenString[17];
 
@@ -35,22 +44,19 @@ function Achievement() {
       const res = await fetch(`https://www.strava.com/api/v3/athlete`, config);
       const dataRes = await res.json();
       setAthleteId(dataRes.id);
+      return dataRes.id;
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (session) {
-    UserService({ name: session.user.name });
-  }
-
   const callAthleteStats = async () => {
-    callAthleteId();
+    const resultAthleteId = await callAthleteId();
 
-    if (athledeId) {
+    if (resultAthleteId) {
       try {
         const res = await fetch(
-          `https://www.strava.com/api/v3/athletes/${athledeId}/stats`,
+          `https://www.strava.com/api/v3/athletes/${resultAthleteId}/stats`,
           config
         );
         const dataRes = await res.json();
@@ -63,9 +69,32 @@ function Achievement() {
     }
   };
 
-  callAthleteStats();
+  const resultDatabase = async () => {
+    await callAthleteStats();
+    const resultAthleteId = await callAthleteId();
+    const r = await callOurApi();
 
-  callOurApi();
+    if (!r.find((id) => resultAthleteId === id.stravaId)) {
+      if (session) {
+        UserService({ name: session.user.name, id: resultAthleteId });
+      }
+    }
+  };
+
+  resultDatabase();
+
+  const saveGoal = async () => {
+    const id = await callAthleteId();
+    console.log(id);
+
+    userGoal({
+      sportType: "test",
+      kilometers: "120",
+      userId: "104128140",
+      startDate: "startDate",
+      goalDate: "goalDate",
+    });
+  };
 
   return (
     <Box maxWidth={"1200px"} margin={"auto"} sx={{ display: "flex-col" }}>
@@ -110,8 +139,6 @@ function Achievement() {
         Set your goals
       </Typography>
 
-      <button onClick={callAthleteId}>Make API call</button>
-      <button onClick={callAthleteStats}>Make API call 2</button>
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <Box
           sx={{
@@ -134,21 +161,43 @@ function Achievement() {
             <TabPanel value="1">
               <Typography>Set new Goal</Typography>
               <br />
-              <NativePickers></NativePickers>
+              <NativePickers
+                startDate={startDate}
+                goalDate={goalDate}
+                goal={goal}
+                setGoal={setGoal}
+                setGoalDate={setGoalDate}
+                setStartDate={setStartDate}
+              ></NativePickers>
             </TabPanel>
             <TabPanel value="2">
               <Typography>Set new Goal</Typography>
               <br />
-              <NativePickers></NativePickers>
+              <NativePickers
+                startDate={startDate}
+                goalDate={goalDate}
+                goal={goal}
+                setGoal={setGoal}
+                setGoalDate={setGoalDate}
+                setStartDate={setStartDate}
+              ></NativePickers>
             </TabPanel>
             <TabPanel value="3">
               <Typography>Set new Goal</Typography>
               <br />
-              <NativePickers></NativePickers>
+              <NativePickers
+                startDate={startDate}
+                goalDate={goalDate}
+                goal={goal}
+                setGoal={setGoal}
+                setGoalDate={setGoalDate}
+                setStartDate={setStartDate}
+              ></NativePickers>
             </TabPanel>
           </TabContext>
         </Box>
       </LocalizationProvider>
+      <button onClick={saveGoal}>Speichern</button>
     </Box>
   );
 }

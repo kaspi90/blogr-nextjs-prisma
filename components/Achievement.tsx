@@ -90,13 +90,13 @@ function Achievement() {
     const result = await callOurApi();
 
     const user = result.find((user) => resultAthleteId === user.stravaId);
-    console.log("test" + user);
+    console.log(user);
     userGoal({
       sportType: "test",
-      kilometers: "120",
-      userId: user.userId.toString,
-      startDate: "startDate",
-      goalDate: "goalDate",
+      kilometers: goal,
+      userId: user.id,
+      startDate: startDate,
+      goalDate: goalDate,
     });
   };
 

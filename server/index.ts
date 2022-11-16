@@ -61,8 +61,6 @@ app.get('/users', async (req, res) => {
     try {
       const { sportType, kilometers, startDate, goalDate, userId } = req.body
   
-      // games is an array of string | string[]
-
     const newGoal = await prisma.goal.create({
      
       data: {

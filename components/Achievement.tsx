@@ -92,7 +92,7 @@ function Achievement() {
     const user = result.find((user) => resultAthleteId === user.stravaId);
     console.log(user);
     userGoal({
-      sportType: "test",
+      sportType: value,
       kilometers: goal,
       userId: user.id,
       startDate: startDate,
@@ -157,12 +157,12 @@ function Achievement() {
                 onChange={handleChange}
                 aria-label="lab API tabs example"
               >
-                <Tab label="Swimming Goals" value="1" />
-                <Tab label="Riding Goals" value="2" />
-                <Tab label="Running Goals" value="3" />
+                <Tab label="Swimming Goals" value="Swimming" />
+                <Tab label="Riding Goals" value="Riding" />
+                <Tab label="Running Goals" value="Running" />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel value="Swimming">
               <Typography>Set new Goal</Typography>
               <br />
               <NativePickers
@@ -174,7 +174,7 @@ function Achievement() {
                 setStartDate={setStartDate}
               ></NativePickers>
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel value="Riding">
               <Typography>Set new Goal</Typography>
               <br />
               <NativePickers
@@ -186,7 +186,7 @@ function Achievement() {
                 setStartDate={setStartDate}
               ></NativePickers>
             </TabPanel>
-            <TabPanel value="3">
+            <TabPanel value="Running">
               <Typography>Set new Goal</Typography>
               <br />
               <NativePickers

@@ -12,7 +12,6 @@ import { callOurApi } from "../pages/api/UserService";
 import * as React from "react";
 import { Moment } from "moment";
 import { userGoal } from "../pages/api/UserService";
-import { stringify } from "querystring";
 
 function Achievement() {
   const { data: session } = useSession();
@@ -84,13 +83,13 @@ function Achievement() {
   resultDatabase();
 
   const saveGoal = async () => {
-    const id = await callAthleteId();
-    console.log(id);
+    /* const id = await callAthleteId();
+    console.log(id); */
 
     userGoal({
       sportType: "test",
       kilometers: "120",
-      userId: "104128140",
+      userId: athledeId,
       startDate: "startDate",
       goalDate: "goalDate",
     });

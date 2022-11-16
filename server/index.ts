@@ -70,7 +70,7 @@ app.get('/users', async (req, res) => {
         kilometers: kilometers, 
         startDate: startDate,
         goalDate: goalDate, 
-        userId: id 
+        userId: id, 
       },
     })
       
